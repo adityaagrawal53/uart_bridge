@@ -1,0 +1,38 @@
+
+------------------------------------------------------------------------------------------------------------------------
+!TASK: Migrating from source-tool 'ARM Compiler' (com.ti.ccstudio.buildDefinitions.MSP432_18.12.exe.compilerDebug.2131126035) ... [Mon Apr 20 20:01:44 EEST 2026]
+
+	!CONFIGURATION: 'Debug' (com.ti.ccstudio.buildDefinitions.MSP432.Debug.1895232022)
+
+		!TOOL: 'Arm Compiler' (com.ti.ccstudio.buildDefinitions.MSP432_TICLANG_4.0.exe.compilerDebug.1270310324)
+
+			!ERROR: java.io.IOException: Cannot run program "" (in directory "/home/clzhou/workspace_v9/Mixer_com_AP/Debug"): error=2, No such file or directory
+				at java.base/java.lang.ProcessBuilder.start(Unknown Source)
+				at java.base/java.lang.ProcessBuilder.start(Unknown Source)
+				at java.base/java.lang.Runtime.exec(Unknown Source)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.getCanonicalizedToolSettings(ConfigurationInitializer.java:2139)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.migrateBuildOptions(ConfigurationInitializer.java:1664)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.doCopyBuildOptions(ConfigurationInitializer.java:1310)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.copyBuildOptions(ConfigurationInitializer.java:430)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.internalCopyBuildOptions(ConfigurationInitializer.java:1233)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.internalInitializeBuildOptions(ConfigurationInitializer.java:892)
+				at com.ti.ccs.project.initializer.ConfigurationInitializer.initializeFromExisting(ConfigurationInitializer.java:286)
+				at com.ti.ccs.project.services.ProjectModifier$1.run(ProjectModifier.java:1246)
+				at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2380)
+				at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2405)
+				at com.ti.ccs.project.services.ProjectModifier.modifyCCSProject(ProjectModifier.java:1208)
+				at com.ti.ccs.project.services.ProjectModifier.modifyCCSProject(ProjectModifier.java:1166)
+				at com.ti.ccs.server.handlers.ProjectPropertiesHandler.cmd_modifyProjectProperties_end(ProjectPropertiesHandler.java:1618)
+				at com.ti.ccs.server.handlers.ProjectPropertiesHandler$14.handle(ProjectPropertiesHandler.java:613)
+				at com.ti.ccs.server.events.IServerRequestHandler$Impl.handle(IServerRequestHandler.java:34)
+				at com.ti.ccs.server.CCSServer$RequestHandlerJob.run(CCSServer.java:174)
+				at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+			Caused by: java.io.IOException: error=2, No such file or directory
+				at java.base/java.lang.ProcessImpl.forkAndExec(Native Method)
+				at java.base/java.lang.ProcessImpl.<init>(Unknown Source)
+				at java.base/java.lang.ProcessImpl.start(Unknown Source)
+				... 20 more
+			
+
+!END_TASK: [Mon Apr 20 20:01:44 EEST 2026]
+

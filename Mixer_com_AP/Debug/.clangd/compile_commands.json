@@ -1,0 +1,157 @@
+[
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/adc14.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/aes256.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/comp_e.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/cpu.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/crc32.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/cs.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/dma.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/flash.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/fpu.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/gpio.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/i2c.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/interrupt.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/mpu.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/pcm.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/pmap.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/pss.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/ref_a.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/reset.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/rtc_c.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/spi.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/sysctl.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/systick.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/timer32.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/timer_a.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/uart.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx/wdt_a.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/src/bolt.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/src/pi_UART.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/startup_msp432p401r_ccs.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/system_msp432p401r.c"
+   },
+   {
+      "directory" : "/home/paz/workspace_ccstheia/Mixer_com_AP/Debug",
+      "command"   : "clang++ -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include\" -I\"/home/paz/ti/ccs2050/ccs/ccs_base/arm/include/CMSIS\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/workspace_ccstheia/Mixer_com_AP/src\" -I\"/home/paz/workspace_ccstheiaMixer_com_AP/include/driverlib/MSP432P4xx\" -I\"/home/paz/Downloads/ti-cgt-arm_18.12.2.LTS/include\" -D__MSP432P401R__ -Dccs -xc",
+      "file"      : "/home/paz/workspace_ccstheia/Mixer_com_AP/src/main_btb.c"
+   }
+]

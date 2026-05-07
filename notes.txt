@@ -1,0 +1,26 @@
+ros2 bag play my_bag --loop
+
+ros2 run uart_bridge uart_node
+
+ros2 topic echo /uart_tx
+ros2 topic echo /uart_rx
+
+colcon build && source install/setup.bash
+ros2 run uart_bridge lidar_node
+
+ros2 topic echo /uart_tx_raw
+ros2 topic echo /uart_rx_raw
+
+ros2 topic echo /scan_uart
+ros2 topic echo /scan
+ros2 topic hz /scan_uart
+ros2 topic hz /scan
+# --full-length for the entire thing, no truncations
+# --once for just, well, once. :w
+python3 compare_scans.py # this is in the uart_bridge ros2_ws folder. 
+
+i've changed the baud rate to 4x (460800) instead of the previous 115200. 
+the code on the DPP is rather minimal for now: it's just echoing back whatever i send it over UART. no other print statements exist as like on christina/olli's code.
+
+ros2 bag play rosbag2_2026_05_05-11_39_41/ --loop
+

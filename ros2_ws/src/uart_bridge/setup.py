@@ -27,6 +27,7 @@ setup(
             "odom_uart = uart_bridge.odom_uart:main",
             "lidar_node = uart_bridge.lidar_node:main",
             "lidar_node_old = uart_bridge.lidar_node_old:main",
+            "lidar_node_v2 = uart_bridge.lidar_node_v2:main",
         ],
     },
 )

@@ -1,15 +1,4 @@
 #!/usr/bin/env python3
-"""
-Compare /scan and /scan_uart by matching messages using header.stamp.
-Subscribes with qos_profile_sensor_data (BEST_EFFORT) to avoid incompatibility.
-
-Usage:
-  python3 compare_scans.py [--orig /scan] [--rx /scan_uart] [--window 5.0]
-
-The node matches messages that have identical header.stamp (sec,nanosec) and
-computes mean/max absolute differences, counts of infinite/invalid samples, and
-percentage within thresholds (1cm,5cm,10cm).
-"""
 
 import argparse
 import math
@@ -25,11 +14,9 @@ from sensor_msgs.msg import LaserScan
 class ScanComparator(Node):
     def __init__(self, orig_topic="/scan", rx_topic="/scan_uart", window_sec=5.0):
         super().__init__("scan_comparator")
-        self.orig_topic = orig_topic
-        self.rx_topic = rx_topic
+
         self.window_sec = float(window_sec)
 
-        # stores: key -> (msg, recv_time_seconds)
         self.orig_msgs = {}
         self.rx_msgs = {}
 
@@ -40,110 +27,134 @@ class ScanComparator(Node):
             LaserScan, rx_topic, self.cb_rx, qos_profile_sensor_data
         )
 
-        # periodic cleanup of unmatched messages
         self.create_timer(1.0, self._cleanup)
 
         self.pair_count = 0
 
-        self.get_logger().info(
-            f"Listening for {orig_topic} and {rx_topic}; matching window={self.window_sec}s"
-        )
+        self.get_logger().info(f"Comparing {orig_topic} ↔ {rx_topic} (angle-aligned)")
+
+    # ------------------------------------------------------------
+    # Helpers
+    # ------------------------------------------------------------
+    @staticmethod
+    def stamp_key(msg: LaserScan):
+        return (int(msg.header.stamp.sec), int(msg.header.stamp.nanosec))
 
     @staticmethod
-    def _stamp_key(msg: LaserScan):
-        try:
-            s = int(msg.header.stamp.sec)
-            ns = int(msg.header.stamp.nanosec)
-        except Exception:
-            # fallback to now when stamp missing
-            now = rclpy.clock.Clock().now().to_msg()
-            s = int(now.sec)
-            ns = int(now.nanosec)
-        return (s, ns)
+    def angle(msg, i):
+        return msg.angle_min + i * msg.angle_increment
 
-    def cb_orig(self, msg: LaserScan):
-        key = self._stamp_key(msg)
-        self.orig_msgs[key] = (msg, self.get_clock().now().nanoseconds / 1e9)
-        if key in self.rx_msgs:
-            rx_msg, _ = self.rx_msgs.pop(key)
-            orig_msg, _ = self.orig_msgs.pop(key)
-            self._compare_pair(orig_msg, rx_msg)
+    @staticmethod
+    def find_nearest(rx: LaserScan, angle: float):
+        best_i = -1
+        best_d = float("inf")
 
-    def cb_rx(self, msg: LaserScan):
-        key = self._stamp_key(msg)
-        self.rx_msgs[key] = (msg, self.get_clock().now().nanoseconds / 1e9)
-        if key in self.orig_msgs:
-            orig_msg, _ = self.orig_msgs.pop(key)
-            rx_msg, _ = self.rx_msgs.pop(key)
-            self._compare_pair(orig_msg, rx_msg)
+        for i in range(len(rx.ranges)):
+            a = rx.angle_min + i * rx.angle_increment
+            d = abs(a - angle)
+            if d < best_d:
+                best_d = d
+                best_i = i
 
-    def _compare_pair(self, orig: LaserScan, rx: LaserScan):
-        # Compare ranges element-wise up to the minimum length
-        n_orig = len(orig.ranges)
-        n_rx = len(rx.ranges)
-        n = min(n_orig, n_rx)
+        return best_i
 
-        diffs = []
+    # ------------------------------------------------------------
+    # Callbacks
+    # ------------------------------------------------------------
+    def cb_orig(self, msg):
+        k = self.stamp_key(msg)
+        self.orig_msgs[k] = (msg, self.now())
+
+        if k in self.rx_msgs:
+            self._compare(self.orig_msgs.pop(k)[0], self.rx_msgs.pop(k)[0])
+
+    def cb_rx(self, msg):
+        k = self.stamp_key(msg)
+        self.rx_msgs[k] = (msg, self.now())
+
+        if k in self.orig_msgs:
+            self._compare(self.orig_msgs.pop(k)[0], self.rx_msgs.pop(k)[0])
+
+    def now(self):
+        return self.get_clock().now().nanoseconds / 1e9
+
+    # ------------------------------------------------------------
+    # Core comparison
+    # ------------------------------------------------------------
+    def _compare(self, orig: LaserScan, rx: LaserScan):
+        range_diffs = []
+        intensity_diffs = []
+
         inf_inf = 0
         inf_mismatch = 0
-        count_valid = 0
 
-        for i in range(n):
+        # iterate over ORIGINAL scan only
+        for i in range(len(orig.ranges)):
             a = orig.ranges[i]
-            b = rx.ranges[i]
+            angle = self.angle(orig, i)
+
+            j = self.find_nearest(rx, angle)
+            if j < 0:
+                continue
+
+            b = rx.ranges[j]
+
+            ai = orig.intensities[i] if i < len(orig.intensities) else 0.0
+            bi = rx.intensities[j] if j < len(rx.intensities) else 0.0
+
+            # ---------------- RANGE ----------------
             if math.isinf(a) and math.isinf(b):
                 inf_inf += 1
-                continue
-            if math.isinf(a) != math.isinf(b):
+            elif math.isinf(a) != math.isinf(b):
                 inf_mismatch += 1
-                # treat as large difference but include in stats as NaN/infinite
-                count_valid += 1
-                diffs.append(float("inf") if math.isinf(a) else abs(a - b))
-                continue
-            # both finite
-            diff = abs(a - b)
-            diffs.append(diff)
-            count_valid += 1
+                range_diffs.append(float("inf"))
+            else:
+                range_diffs.append(abs(a - b))
 
-        finite = [d for d in diffs if math.isfinite(d)]
-        mean = statistics.mean(finite) if finite else float("nan")
-        mx = max(finite) if finite else float("nan")
-        within_1cm = (
-            (sum(1 for d in finite if d <= 0.01) / len(finite) * 100) if finite else 0.0
-        )
-        within_5cm = (
-            (sum(1 for d in finite if d <= 0.05) / len(finite) * 100) if finite else 0.0
-        )
-        within_10cm = (
-            (sum(1 for d in finite if d <= 0.1) / len(finite) * 100) if finite else 0.0
+            # ---------------- INTENSITY ----------------
+            intensity_diffs.append(abs(float(ai) - float(bi)))
+
+        finite_r = [d for d in range_diffs if math.isfinite(d)]
+        finite_i = [d for d in intensity_diffs if math.isfinite(d)]
+
+        def safe_mean(x):
+            return statistics.mean(x) if x else float("nan")
+
+        def safe_max(x):
+            return max(x) if x else float("nan")
+
+        mean_r = safe_mean(finite_r)
+        max_r = safe_max(finite_r)
+
+        mean_i = safe_mean(finite_i)
+        max_i = safe_max(finite_i)
+
+        int_match = (
+            sum(1 for d in finite_i if d < 1e-3) / len(finite_i) * 100
+            if finite_i
+            else 0.0
         )
 
         self.pair_count += 1
         stamp = orig.header.stamp
+
         self.get_logger().info(
-            f"Pair#{self.pair_count} stamp={stamp.sec}.{stamp.nanosec} orig_len={n_orig} rx_len={n_rx} "
-            f"compared={len(finite)} mean_abs_diff={mean:.6f} m max_abs_diff={mx:.6f} m "
-            f"inf_inf={inf_inf} inf_mismatch={inf_mismatch} within1cm={within_1cm:.1f}% within5cm={within_5cm:.1f}% within10cm={within_10cm:.1f}%"
+            f"Pair#{self.pair_count} "
+            f"stamp={stamp.sec}.{stamp.nanosec} "
+            f"orig_len={len(orig.ranges)} rx_len={len(rx.ranges)} "
+            f"range_mean={mean_r:.6f}m range_max={max_r:.6f}m "
+            f"int_mean_err={mean_i:.6f} int_max_err={max_i:.6f} "
+            f"int_match={int_match:.2f}% "
+            f"inf_inf={inf_inf} inf_mismatch={inf_mismatch}"
         )
 
-        # report some large diffs (first up to 10)
-        large = []
-        for i in range(n):
-            if i >= n:
-                break
-            a = orig.ranges[i]
-            b = rx.ranges[i]
-            if math.isfinite(a) and math.isfinite(b):
-                d = abs(a - b)
-                if d > 0.1:  # threshold for 'large'
-                    large.append((i, d))
-        if large:
-            s = ",".join(f"{i}:{d:.3f}" for i, d in large[:10])
-            self.get_logger().info(f"Large diffs (index:diff m) first10: {s}")
-
+    # ------------------------------------------------------------
+    # cleanup
+    # ------------------------------------------------------------
     def _cleanup(self):
-        now = self.get_clock().now().nanoseconds / 1e9
+        now = self.now()
         expire = now - self.window_sec
+
         for d in (self.orig_msgs, self.rx_msgs):
             for k in list(d.keys()):
                 if d[k][1] < expire:
@@ -152,17 +163,19 @@ class ScanComparator(Node):
 
 def main(argv=None):
     rclpy.init()
+
     parser = argparse.ArgumentParser()
-    parser.add_argument("--orig", default="/scan", help="original scan topic")
-    parser.add_argument("--rx", default="/scan_uart", help="reconstructed scan topic")
-    parser.add_argument(
-        "--window", type=float, default=5.0, help="matching window seconds"
-    )
+    parser.add_argument("--orig", default="/scan")
+    parser.add_argument("--rx", default="/scan_uart")
+    parser.add_argument("--window", type=float, default=5.0)
     args = parser.parse_args(argv[1:] if argv else sys.argv[1:])
 
     node = ScanComparator(
-        orig_topic=args.orig, rx_topic=args.rx, window_sec=args.window
+        orig_topic=args.orig,
+        rx_topic=args.rx,
+        window_sec=args.window,
     )
+
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:

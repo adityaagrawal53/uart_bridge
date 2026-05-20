@@ -9,7 +9,7 @@ Benchmarks robot-to-robot communication under two transport conditions:
     Peer robot subscribes to that topic and the measurement is one-way latency.
 
   transport:=mixer  (Mixer/DPP condition)
-    Robot subscribes to real /amcl_pose and /scan, writes packed bytes to the
+    Robot subscribes to real /amcl_pose and /scan, writes packed bytes to the # TODO:
     DPP board over USB serial.  The DPP board transmits via Mixer (802.15.4)
     to the peer DPP, which forwards bytes back to the peer RPi4.  The peer
     RPi4 teammate node echoes those bytes back over DDS so that THIS node can
@@ -34,11 +34,11 @@ Parameters
 ----------
   robot_id          str       'robot1'
   other_robot_ids   list[str] ['robot2']
-  ping_rate_hz      float     10.0
+  ping_rate_hz      float     10.0 # TODO: change to 5 for Mixer purposes?
   transport         str       'cyclonedds'  |  'mixer'
   payload_type      str       'pose'        |  'lidar'
-  serial_port       str       '/dev/ttyUSB1'   
-  serial_baud       int       460800          
+  serial_port       str       '/dev/ttyUSB1'   # changed
+  serial_baud       int       460800          # changed
   wifi_iface        str       'wlan0'
   log_dir           str       '/home/ubuntu/measurements'
 """
@@ -51,6 +51,7 @@ import threading
 import time
 from datetime import datetime
 
+# ROS2 dependencies
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String

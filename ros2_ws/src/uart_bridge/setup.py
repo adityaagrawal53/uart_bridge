@@ -28,6 +28,7 @@ setup(
             "lidar_node = uart_bridge.lidar_node:main",
             "lidar_node_old = uart_bridge.lidar_node_old:main",
             "lidar_node_v2 = uart_bridge.lidar_node_v2:main",
+            "latency_pdr_node = uart_bridge.latency_pdr_node:main",
         ],
     },
 )

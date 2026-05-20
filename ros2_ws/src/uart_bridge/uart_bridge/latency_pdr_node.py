@@ -37,8 +37,8 @@ Parameters
   ping_rate_hz      float     10.0
   transport         str       'cyclonedds'  |  'mixer'
   payload_type      str       'pose'        |  'lidar'
-  serial_port       str       '/dev/ttyUSB0'   <- confirm with teammate
-  serial_baud       int       115200            <- confirm with teammate
+  serial_port       str       '/dev/ttyUSB1'   
+  serial_baud       int       460800          
   wifi_iface        str       'wlan0'
   log_dir           str       '/home/ubuntu/measurements'
 """

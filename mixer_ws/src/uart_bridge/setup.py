@@ -25,6 +25,7 @@ setup(
         "console_scripts": [
             "uart_node = uart_bridge.uart_node:main",
             "odom_uart = uart_bridge.odom_uart:main",
+            "pose_uart = uart_bridge.pose_uart:main",
             "latency_pdr_node = uart_bridge.latency_pdr_node:main",
             "amcl_pose_generator = uart_bridge.amcl_pose_generator:main",
         ],

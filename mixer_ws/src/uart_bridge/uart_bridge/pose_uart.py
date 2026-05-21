@@ -1,28 +1,46 @@
 import json
-import math
 
 import rclpy
 import serial
-from nav_msgs.msg import Odometry
+from geometry_msgs.msg import PoseWithCovarianceStamped
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
+from rclpy.time import Time
 
 
-class OdomUARTBridge(Node):
+class AmclPoseUARTBridge(Node):
     def __init__(self):
-        super().__init__("odom_uart_bridge")
+        super().__init__("amcl_pose_uart_bridge")
         self.rx_buffer = ""
+        self.tx_seq = 0
 
         # Parameters
         self.declare_parameter("port", "/dev/ttyUSB0")
         self.declare_parameter("baudrate", 460800)
         self.declare_parameter("rate_limit_hz", 5.0)
+        self.declare_parameter("tag", 1)
+        self.declare_parameter("input_topic", "/amcl_pose")
+        self.declare_parameter("output_topic", "/amcl_pose_uart")
+        self.declare_parameter("frame_id", "map")
 
         port = self.get_parameter("port").get_parameter_value().string_value
         baudrate = self.get_parameter("baudrate").get_parameter_value().integer_value
         self.rate_limit = (
             self.get_parameter("rate_limit_hz").get_parameter_value().double_value
         )
+        self.tag = self.get_parameter("tag").get_parameter_value().integer_value
+        self.input_topic = (
+            self.get_parameter("input_topic").get_parameter_value().string_value
+        )
+        self.output_topic = (
+            self.get_parameter("output_topic").get_parameter_value().string_value
+        )
+        self.frame_id = (
+            self.get_parameter("frame_id").get_parameter_value().string_value
+        )
+
+        if self.rate_limit <= 0.0:
+            raise ValueError("rate_limit_hz must be > 0")
 
         # Serial
         self.ser = serial.Serial(port, baudrate, timeout=0.01)
@@ -33,10 +51,14 @@ class OdomUARTBridge(Node):
 
         # ROS interfaces
         self.sub = self.create_subscription(
-            Odometry, "/odom", self.odom_callback, qos_profile_sensor_data
+            PoseWithCovarianceStamped,
+            self.input_topic,
+            self.pose_callback,
+            qos_profile_sensor_data,
         )
-
-        self.pub = self.create_publisher(Odometry, "/odom_uart", 10)
+        self.pub = self.create_publisher(
+            PoseWithCovarianceStamped, self.output_topic, 10
+        )
 
         # Timer for reading UART
         self.timer = self.create_timer(0.01, self.read_serial)
@@ -45,39 +67,44 @@ class OdomUARTBridge(Node):
     # Helpers
     # -------------------------
 
-    def quaternion_to_yaw(self, q):
-        siny_cosp = 2.0 * (q.w * q.z + q.x * q.y)
-        cosy_cosp = 1.0 - 2.0 * (q.y * q.y + q.z * q.z)
-        return math.atan2(siny_cosp, cosy_cosp)
+    @staticmethod
+    def _stamp_from_ns(t_ns: int):
+        stamp = Time(nanoseconds=t_ns).to_msg()
+        return stamp
 
-    def yaw_to_quaternion(self, yaw):
-        qz = math.sin(yaw / 2.0)
-        qw = math.cos(yaw / 2.0)
-        return qz, qw
+    def _build_payload(self, msg: PoseWithCovarianceStamped):
+        position = msg.pose.pose.position
+        orientation = msg.pose.pose.orientation
+
+        return {
+            "tag": self.tag,
+            "seq": self.tx_seq,
+            "t_ns": int(self.get_clock().now().nanoseconds),
+            "x": position.x,
+            "y": position.y,
+            "z": position.z,
+            "qx": orientation.x,
+            "qy": orientation.y,
+            "qz": orientation.z,
+            "qw": orientation.w,
+        }
 
     # -------------------------
     # ROS → UART
     # -------------------------
 
-    def odom_callback(self, msg):
+    def pose_callback(self, msg):
         now = self.get_clock().now().nanoseconds / 1e9
         if now - self.last_sent_time < 1.0 / self.rate_limit:
             return
         self.last_sent_time = now
 
-        yaw = self.quaternion_to_yaw(msg.pose.pose.orientation)
-
-        payload = {
-            "x": round(msg.pose.pose.position.x, 3),
-            "y": round(msg.pose.pose.position.y, 3),
-            "yaw": round(yaw, 3),
-            "vx": round(msg.twist.twist.linear.x, 3),
-            "wz": round(msg.twist.twist.angular.z, 3),
-        }
+        payload = self._build_payload(msg)
 
         try:
             line = json.dumps(payload) + "\n"
             self.ser.write(line.encode("utf-8"))
+            self.tx_seq += 1
         except Exception as e:
             self.get_logger().error(f"UART write failed: {e}")
 
@@ -121,18 +148,23 @@ class OdomUARTBridge(Node):
                 if not isinstance(data, dict):
                     continue
 
+                if int(data.get("tag", -1)) != self.tag:
+                    continue
+
                 # ---- BUILD MESSAGE ----
-                msg = Odometry()
+                msg = PoseWithCovarianceStamped()
+                msg.header.frame_id = self.frame_id
 
-                msg.pose.pose.position.x = data.get("x", 0.0)
-                msg.pose.pose.position.y = data.get("y", 0.0)
+                t_ns = int(data.get("t_ns", 0))
+                msg.header.stamp = self._stamp_from_ns(t_ns)
 
-                yaw = data.get("yaw", 0.0)
-                msg.pose.pose.orientation.z = math.sin(yaw / 2.0)
-                msg.pose.pose.orientation.w = math.cos(yaw / 2.0)
-
-                msg.twist.twist.linear.x = data.get("vx", 0.0)
-                msg.twist.twist.angular.z = data.get("wz", 0.0)
+                msg.pose.pose.position.x = float(data.get("x", 0.0))
+                msg.pose.pose.position.y = float(data.get("y", 0.0))
+                msg.pose.pose.position.z = float(data.get("z", 0.0))
+                msg.pose.pose.orientation.x = float(data.get("qx", 0.0))
+                msg.pose.pose.orientation.y = float(data.get("qy", 0.0))
+                msg.pose.pose.orientation.z = float(data.get("qz", 0.0))
+                msg.pose.pose.orientation.w = float(data.get("qw", 1.0))
 
                 self.pub.publish(msg)
 
@@ -142,7 +174,7 @@ class OdomUARTBridge(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = OdomUARTBridge()
+    node = AmclPoseUARTBridge()
 
     try:
         rclpy.spin(node)

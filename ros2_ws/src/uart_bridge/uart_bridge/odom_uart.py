@@ -15,8 +15,8 @@ class OdomUARTBridge(Node):
 
         # Parameters
         self.declare_parameter("port", "/dev/ttyUSB0")
-        self.declare_parameter("baudrate", 115200)
-        self.declare_parameter("rate_limit_hz", 50.0)
+        self.declare_parameter("baudrate", 460800)
+        self.declare_parameter("rate_limit_hz", 5.0)
 
         port = self.get_parameter("port").get_parameter_value().string_value
         baudrate = self.get_parameter("baudrate").get_parameter_value().integer_value

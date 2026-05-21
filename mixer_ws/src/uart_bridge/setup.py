@@ -25,14 +25,8 @@ setup(
         "console_scripts": [
             "uart_node = uart_bridge.uart_node:main",
             "odom_uart = uart_bridge.odom_uart:main",
-            "lidar_node = uart_bridge.lidar_node:main",
-            "lidar_node_old = uart_bridge.lidar_node_old:main",
-            "lidar_node_v2 = uart_bridge.lidar_node_v2:main",
             "latency_pdr_node = uart_bridge.latency_pdr_node:main",
-            "pose_uart = uart_bridge.pose_uart:main",
-            "pose_uart_2 = uart_bridge.pose_uart_2:main",
             "amcl_pose_generator = uart_bridge.amcl_pose_generator:main",
-            "pose_repeater_node = uart_bridge.pose_repeater_node:main",
         ],
     },
 )

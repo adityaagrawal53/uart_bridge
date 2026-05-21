@@ -8,18 +8,15 @@ Benchmarks robot-to-robot communication under two transport conditions:
     Robot subscribes to real /amcl_pose and /scan, publishes on /<robot_id>/ping.
     Peer robot subscribes to that topic and the measurement is one-way latency.
 
-  transport:=mixer  (Mixer/DPP condition)
-    Robot subscribes to real /amcl_pose and /scan, writes packed bytes to the # TODO:
-    DPP board over USB serial.  The DPP board transmits via Mixer (802.15.4)
-    to the peer DPP, which forwards bytes back to the peer RPi4.  The peer
-    RPi4 teammate node echoes those bytes back over DDS so that THIS node can
-    receive them and measure round-trip latency.
+  transport:=mixer  (Mixer/DPP condition, POSE ONLY)
+    Robot subscribes to real /amcl_pose, writes the SAME packed pose payload
+    format used by the DDS test to the DPP board over USB serial.
 
-Serial framing contract (agreed with DPP teammate)
----------------------------------------------------
-  - Fixed-size packets only (no length header needed)
-  - This node writes the packed payload bytes to serial
-  - DPP echoes the EXACT same bytes back unchanged
+Serial framing contract for mixer pose mode
+-------------------------------------------
+  - Fixed-size pose packet: POSE_FMT = '>BQQ7d'
+  - This node writes the packed pose payload bytes to serial
+  - DPP/AP should return the exact same 73 pose bytes unchanged
   - Sequence number and timestamps are owned by this node
 
 Metrics
@@ -34,11 +31,11 @@ Parameters
 ----------
   robot_id          str       'robot1'
   other_robot_ids   list[str] ['robot2']
-  ping_rate_hz      float     10.0 # TODO: change to 5 for Mixer purposes?
+  ping_rate_hz      float     5.0
   transport         str       'cyclonedds'  |  'mixer'
   payload_type      str       'pose'        |  'lidar'
-  serial_port       str       '/dev/ttyUSB1'   # changed
-  serial_baud       int       460800          # changed
+  serial_port       str       '/dev/ttyUSB1'
+  serial_baud       int       460800
   wifi_iface        str       'wlan0'
   log_dir           str       '/home/ubuntu/measurements'
 """
@@ -46,7 +43,7 @@ Parameters
 import math
 import os
 import csv
-import struct # COMMENT: converts the data to C structs that should (in theory) be easy to read on the DPP side since it's coded in C (and lots of vibes)
+import struct
 import threading
 import time
 from datetime import datetime
@@ -73,12 +70,11 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # Payload formats
 #
-#   POSE:  tag(B) seq(Q) ts_ns(Q) x y z qx qy qz qw (7d)  ->   89 bytes
+#   POSE:  tag(B) seq(Q) ts_ns(Q) x y z qx qy qz qw (7d)  -> 73 bytes
 #   LIDAR: tag(B) seq(Q) ts_ns(Q) ranges*360 (360f)        -> 1457 bytes
 #
 # Big-endian so byte order is unambiguous on both RPi4 and DPP board.
-# TODO: Is this payload format specific to the Mixer/DPP, or is it also what is used to format the
-# the ROS2 data? I was under the impression that the ROS2 data was sent as std. topics over cyclone_dds...
+# Mixer/DPP mode is currently intended for pose only.
 # ---------------------------------------------------------------------------
 
 POSE_TAG  = 0x01
@@ -87,7 +83,7 @@ LIDAR_TAG = 0x02
 POSE_FMT  = '>BQQ7d'
 LIDAR_FMT = '>BQQ360f'
 
-POSE_SIZE  = struct.calcsize(POSE_FMT)   # 89  bytes # TODO: chatgpt says this is actually 73 bytes, unless padding is involved. conspiracy?
+POSE_SIZE  = struct.calcsize(POSE_FMT)   # 73 bytes
 LIDAR_SIZE = struct.calcsize(LIDAR_FMT)  # 1457 bytes
 
 
@@ -115,11 +111,11 @@ class LatencyPDRNode(Node):
         # ------------------------------------------------------------------ #
         self.declare_parameter('robot_id',        'robot1')
         self.declare_parameter('other_robot_ids', ['robot2'])
-        self.declare_parameter('ping_rate_hz',    10.0) # TODO: Change later?
+        self.declare_parameter('ping_rate_hz',    5.0)
         self.declare_parameter('transport',       'cyclonedds')
         self.declare_parameter('payload_type',    'pose')
-        self.declare_parameter('serial_port',     '/dev/ttyUSB1') # TODO: changed
-        self.declare_parameter('serial_baud',     460800) # TODO: changed
+        self.declare_parameter('serial_port',     '/dev/ttyUSB1')
+        self.declare_parameter('serial_baud',     460800)
         self.declare_parameter('wifi_iface',      'wlan0')
         self.declare_parameter('log_dir',         '/home/ubuntu/measurements')
 
@@ -191,13 +187,13 @@ class LatencyPDRNode(Node):
             PoseWithCovarianceStamped,
             f'/{self.robot_id}/amcl_pose',
             self._amcl_callback,
-            10 # TODO: is this hertz? if so, change
+            10
         )
         self.create_subscription(
             LaserScan,
             f'/{self.robot_id}/scan',
             self._scan_callback,
-            10  # TODO: is this hertz? if so, change
+            10
         )
 
         # ------------------------------------------------------------------ #
@@ -215,8 +211,6 @@ class LatencyPDRNode(Node):
             'recv_time_ns',
             'send_time_ns',
             'latency_ms',       # one-way for DDS; RTT/2 for Mixer
-            # TODO: what does RTT means? round trip as in it recieves its own message back at some point
-            # and this can be used to calculated the latency between two nodes on average??
             'jitter_ms',
             'sender_id',
             'seq',
@@ -251,6 +245,10 @@ class LatencyPDRNode(Node):
             raise ValueError(
                 f"payload_type must be 'pose' or 'lidar', got '{self.payload_type}'"
             )
+        if self.transport == 'mixer' and self.payload_type != 'pose':
+            raise ValueError(
+                "mixer transport currently supports payload_type='pose' only"
+            )
         if self.transport == 'mixer' and not _SERIAL:
             raise RuntimeError(
                 "pyserial not installed — "
@@ -264,24 +262,24 @@ class LatencyPDRNode(Node):
     def _setup_cyclonedds(self):
         """Outbound publisher + one subscriber per peer robot."""
         self.ping_pub = self.create_publisher(
-                String, f'/{self.robot_id}/ping', 10 # TODO: hertz?
+            String, f'/{self.robot_id}/ping', 10
         )
         for other in self.other_ids:
             self.create_subscription(
                 String,
                 f'/{other}/ping',
                 lambda msg, sid=other: self._dds_ping_callback(msg, sid),
-                10 # TODO: hertz?
+                10
             )
 
     def _setup_serial(self):
         """
         Open USB serial port to the DPP board.
-        serial_port and serial_baud are placeholder parameters —
-        update once confirmed with teammate. 
 
-        A background thread reads echo bytes back from the DPP so that
-        the main ROS spin thread is never blocked.
+        For mixer mode, this node sends and receives fixed-size pose payloads.
+        The pose payload is the same packed format used by DDS mode:
+            POSE_FMT = '>BQQ7d'
+            POSE_SIZE = 73 bytes
         """
         try:
             self._ser = serial.Serial(
@@ -297,10 +295,9 @@ class LatencyPDRNode(Node):
             self._ser = None
             return
 
-        payload_size = POSE_SIZE if self.payload_type == 'pose' else LIDAR_SIZE
         threading.Thread(
             target=self._serial_read_loop,
-            args=(payload_size,),
+            args=(POSE_SIZE,),
             daemon=True,
         ).start()
 
@@ -358,7 +355,7 @@ class LatencyPDRNode(Node):
     # ====================================================================== #
 
     def _publish_ping(self):
-        now_ns = self.get_clock().now().nanoseconds # TODO: why is this in ns? ms would be more practical for the purposes of our needs?
+        now_ns = self.get_clock().now().nanoseconds
 
         # Block until real sensor data is available
         if self.payload_type == 'pose' and self._latest_pose is None:
@@ -374,14 +371,13 @@ class LatencyPDRNode(Node):
 
         raw = self._build_payload(self.seq, now_ns)
 
-        # TODO: this looks like the meat of the entire script
         if self.transport == 'cyclonedds':
             # Hex-encode into String to avoid custom message type
             msg = String()
             msg.data = raw.hex()
             self.ping_pub.publish(msg)
 
-        else:  # mixer
+        else:  # mixer, pose only
             if self._ser and self._ser.is_open:
                 try:
                     self._ser.write(raw)
@@ -462,11 +458,9 @@ class LatencyPDRNode(Node):
                 if seq in self._send_times:
                     rtt_ms     = (recv_time_ns - self._send_times.pop(seq)) / 1e6
                     latency_ms = rtt_ms / 2.0
-                    # TODO: why are we still dividing by two? clarify? chat-gpt kun help me
                 else:
                     # Fallback: embedded timestamp (requires NTP sync)
                     latency_ms = (recv_time_ns - send_time_ns) / 1e6
-                    # TODO: this is correct (theoretically?) why is it in the else? aren't all the robots synced by definition?
 
                 if latency_ms < 0:
                     self.get_logger().warn(
